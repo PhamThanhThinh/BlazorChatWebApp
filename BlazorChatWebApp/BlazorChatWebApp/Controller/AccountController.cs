@@ -12,10 +12,12 @@ namespace BlazorChatWebApp.Controller
   public class AccountController : ControllerBase
   {
     private readonly ApplicationDbContext _context;
+    private readonly TokenService _tokenService;
 
-    public AccountController(ApplicationDbContext context)
+    public AccountController(ApplicationDbContext context, TokenService tokenService)
     {
       _context = context;
+      _tokenService = tokenService;
     }
 
     [HttpPost("register")]

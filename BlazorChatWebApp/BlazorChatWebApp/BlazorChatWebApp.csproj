@@ -9,6 +9,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\BlazorChatWebApp.Shared\BlazorChatWebApp.Shared.csproj" />
     <ProjectReference Include="..\BlazorChatWebApp.Client\BlazorChatWebApp.Client.csproj" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.11" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.11" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.11" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.11" />

@@ -1,0 +1,8 @@
+Client
+Server
+Shared
+
+DTO
+Dto
+
+chat phải có tài khoản không cho đăng ký một tk khách tạm thời

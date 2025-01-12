@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using BlazorChatWebApp.Shared.DTOs;
 using Microsoft.EntityFrameworkCore;
 using BlazorChatWebApp.Data.Entities;
+using System.Security.Claims;
 
 namespace BlazorChatWebApp.Controller
 {
@@ -43,6 +44,9 @@ namespace BlazorChatWebApp.Controller
       await _context.Users.AddAsync(user, cancellationToken);
       await _context.SaveChangesAsync(cancellationToken);
 
+      //Register
+
+
       //return Ok(new { message = "tai khoan dang ky thanh cong" });
       return Ok(user);
     }
@@ -63,7 +67,19 @@ namespace BlazorChatWebApp.Controller
         return BadRequest("tai khoan hoac mat khau khong dung");
       }
 
-      return Ok(user);
+      return Ok(GenerateToken(user));
+    }
+
+    //private GenerateToken(User user)
+    //{
+    //  var token = _tokenService.GenerateJWT(user);
+    //  return new AuthResponseDto(new UserDto(user.Id, user.Name), token);
+    //}
+
+    private AuthResponseDto GenerateToken(User user)
+    {
+      var token = _tokenService.GenerateJWT(user);
+      return new AuthResponseDto(user.Name, token);
     }
   }
 }

@@ -1,7 +1,9 @@
 using BlazorChatWebApp;
 using BlazorChatWebApp.Client.Pages;
 using BlazorChatWebApp.Components;
+using BlazorChatWebApp.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -23,7 +25,13 @@ builder.Services.AddAuthentication(options =>
   }
   );
 
+builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 builder.Services.AddTransient<TokenService>();
+
+builder.Services.AddSignalR();
+builder.Services.AddControllersWithViews();
+builder.Services.AddRazorPages();
 
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents()
@@ -45,8 +53,21 @@ else
 
 app.UseHttpsRedirection();
 
+app.UseBlazorFrameworkFiles();
 app.UseStaticFiles();
+
+app.UseRouting();
+
+app.UseAuthentication();
+app.UseAuthorization();
+
 app.UseAntiforgery();
+
+app.MapRazorPages();
+app.MapControllers();
+
+//app.MapHub<BlazorChatWebApp>("/hubs/chathub");
+app.MapFallbackToFile("index.html");
 
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode()

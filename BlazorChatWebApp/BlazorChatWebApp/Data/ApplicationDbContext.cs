@@ -12,6 +12,23 @@ namespace BlazorChatWebApp.Data
     public DbSet<Message> Messages { get; set; }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+      base.OnModelCreating(modelBuilder);
+
+      modelBuilder.Entity<Message>(e =>
+      {
+        e.HasOne(x => x.FromUser)
+          .WithMany()
+         .HasForeignKey(x => x.FromId)
+         .OnDelete(DeleteBehavior.NoAction);
+        e.HasOne(x => x.ToUser)
+          .WithMany()
+          .HasForeignKey(x => x.ToId)
+          .OnDelete(DeleteBehavior.NoAction);
+
+        //e.HasOne(x => x.ToUser).WithMany().OnDelete(DeleteBehavior.NoAction);
+        //e.HasOne(x => x.FromUser).WithMany().OnDelete(DeleteBehavior.NoAction);
+      }
+      );
     }
   }
 }

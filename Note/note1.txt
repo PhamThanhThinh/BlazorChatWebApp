@@ -17,5 +17,7 @@ entity framework core tools
 add migration
 update database
 
+tabler
+
 
 

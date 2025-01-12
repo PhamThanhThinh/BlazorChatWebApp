@@ -1,0 +1,5 @@
+SSL (mua, dùng dịch vụ miễn phí certbot)
+chạy https
+
+add-migration mo-ta
+update-database
